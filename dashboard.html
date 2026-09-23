@@ -1,0 +1,3466 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ChitPicker | Dashboard</title>
+
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f6fa;
+            color: #222;
+        }
+
+
+        button,
+        input,
+        select,
+        textarea {
+            font-family: inherit;
+        }
+
+
+        /* =====================================================
+           LAYOUT
+        ===================================================== */
+
+        .dashboard {
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+            position: fixed;
+
+            left: 0;
+            top: 0;
+
+            width: 250px;
+            height: 100vh;
+
+            background: #ffffff;
+
+            border-right: 1px solid #e8e8e8;
+
+            z-index: 1000;
+        }
+
+
+        /* LOGO */
+
+        .logo {
+            height: 80px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 0 25px;
+
+            border-bottom: 1px solid #eeeeee;
+        }
+
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #d90429;
+            color: white;
+
+            border-radius: 10px;
+
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+
+        .logo h2 {
+            font-size: 20px;
+        }
+
+
+        .logo h2 span {
+            color: #d90429;
+        }
+
+
+        /* NAVIGATION */
+
+        .nav {
+            padding: 25px 15px;
+
+            display: flex;
+            flex-direction: column;
+
+            gap: 6px;
+        }
+
+
+        .nav a {
+            text-decoration: none;
+
+            color: #666;
+
+            padding: 13px 15px;
+
+            border-radius: 10px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+
+        .nav a:hover {
+            background: #fff0f2;
+            color: #d90429;
+        }
+
+
+        .nav a.active {
+            background: #d90429;
+            color: white;
+
+            box-shadow:
+                0 7px 18px rgba(217, 4, 41, 0.20);
+        }
+
+
+        .nav-icon {
+            width: 25px;
+
+            text-align: center;
+
+            font-size: 18px;
+        }
+
+
+        /* LOGOUT */
+
+        .logout {
+            position: absolute;
+
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+        }
+
+
+        .logout a {
+            text-decoration: none;
+
+            color: #777;
+
+            padding: 13px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            border-radius: 10px;
+        }
+
+
+        .logout a:hover {
+            background: #fff0f2;
+            color: #d90429;
+        }
+
+
+        /* =====================================================
+           MAIN CONTENT
+        ===================================================== */
+
+        .main {
+            margin-left: 250px;
+
+            width: calc(100% - 250px);
+
+            padding: 30px;
+        }
+
+
+        /* =====================================================
+           TOPBAR
+        ===================================================== */
+
+        .topbar {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 25px;
+        }
+
+
+        .topbar h1 {
+            font-size: 28px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .topbar p {
+            color: #888;
+
+            font-size: 13px;
+        }
+
+
+        .admin {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .admin-avatar {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            background: #d90429;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: bold;
+        }
+
+
+        .admin-info {
+            display: flex;
+            flex-direction: column;
+
+            gap: 3px;
+        }
+
+
+        .admin-info strong {
+            font-size: 14px;
+        }
+
+
+        .admin-info small {
+            color: #999;
+
+            font-size: 11px;
+        }
+
+
+        /* =====================================================
+           CREATE BANNER
+        ===================================================== */
+
+        .create-banner {
+            background:
+                linear-gradient(
+                    135deg,
+                    #d90429,
+                    #ef233c
+                );
+
+            color: white;
+
+            padding: 28px;
+
+            border-radius: 16px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 10px 25px
+                rgba(217, 4, 41, 0.15);
+        }
+
+
+        .banner-content h2 {
+            font-size: 23px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .banner-content p {
+            font-size: 13px;
+
+            line-height: 1.6;
+
+            opacity: 0.9;
+
+            max-width: 650px;
+        }
+
+
+        .create-btn {
+            border: none;
+
+            background: white;
+
+            color: #d90429;
+
+            padding: 13px 20px;
+
+            border-radius: 9px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            white-space: nowrap;
+
+            transition: 0.3s;
+        }
+
+
+        .create-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(0, 0, 0, 0.15);
+        }
+
+
+        /* =====================================================
+           STATISTICS
+        ===================================================== */
+
+        .stats {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .stat-card {
+            background: white;
+
+            border: 1px solid #eeeeee;
+
+            border-radius: 14px;
+
+            padding: 21px;
+
+            transition: 0.3s;
+        }
+
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 10px 25px
+                rgba(0, 0, 0, 0.06);
+        }
+
+
+        .stat-top {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 14px;
+        }
+
+
+        .stat-icon {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 19px;
+        }
+
+
+        .red {
+            background: #fff0f2;
+        }
+
+
+        .green {
+            background: #eaf9ef;
+        }
+
+
+        .yellow {
+            background: #fff5dc;
+        }
+
+
+        .blue {
+            background: #edf3ff;
+        }
+
+
+        .stat-label {
+            font-size: 10px;
+
+            color: #999;
+
+            font-weight: bold;
+        }
+
+
+        .stat-card h2 {
+            font-size: 24px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .stat-card p {
+            font-size: 12px;
+
+            color: #999;
+        }
+
+
+        /* =====================================================
+           ALL CHITPICKERS CARD
+        ===================================================== */
+
+        .card {
+            background: white;
+
+            border: 1px solid #eeeeee;
+
+            border-radius: 15px;
+
+            padding: 24px;
+        }
+
+
+        .card-header {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .card-header h3 {
+            font-size: 18px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .card-header p {
+            color: #999;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           SEARCH
+        ===================================================== */
+
+        .search-box {
+            position: relative;
+
+            width: 250px;
+        }
+
+
+        .search-box input {
+            width: 100%;
+
+            height: 40px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 8px;
+
+            padding: 0 12px 0 38px;
+
+            outline: none;
+
+            background: #fafafa;
+
+            font-size: 13px;
+        }
+
+
+        .search-box input:focus {
+            border-color: #d90429;
+
+            background: white;
+        }
+
+
+        .search-icon {
+            position: absolute;
+
+            left: 13px;
+            top: 11px;
+
+            color: #999;
+        }
+
+
+        /* =====================================================
+           CHITPICKER LIST
+        ===================================================== */
+
+        .chit-list {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 15px;
+        }
+
+
+        .chit-item {
+            border: 1px solid #eeeeee;
+
+            border-radius: 13px;
+
+            padding: 20px;
+
+            transition: 0.3s;
+        }
+
+
+        .chit-item:hover {
+            border-color: #ffd0d7;
+
+            box-shadow:
+                0 7px 20px
+                rgba(0, 0, 0, 0.05);
+        }
+
+
+        .chit-top {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 15px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .chit-title {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .chit-icon {
+            width: 44px;
+            height: 44px;
+
+            border-radius: 10px;
+
+            background: #fff0f2;
+
+            color: #d90429;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 20px;
+        }
+
+
+        .chit-title h3 {
+            font-size: 16px;
+
+            margin-bottom: 4px;
+        }
+
+
+        .chit-title p {
+            font-size: 11px;
+
+            color: #999;
+        }
+
+
+        /* STATUS */
+
+        .status {
+            padding: 6px 11px;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+
+            font-weight: bold;
+
+            background: #eaf9ef;
+
+            color: #188a43;
+        }
+
+
+        /* CHIT DETAILS */
+
+        .chit-details {
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            gap: 15px;
+
+            padding: 15px 0;
+
+            border-top: 1px solid #eeeeee;
+
+            border-bottom: 1px solid #eeeeee;
+        }
+
+
+        .detail span {
+            display: block;
+
+            color: #999;
+
+            font-size: 10px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .detail strong {
+            font-size: 13px;
+
+            color: #333;
+        }
+
+
+        /* ACTIONS */
+
+        .chit-actions {
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 8px;
+
+            margin-top: 15px;
+        }
+
+
+        .action-btn {
+            border: none;
+
+            padding: 9px 14px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+
+        .view-btn {
+            background: #edf3ff;
+
+            color: #2864d7;
+        }
+
+
+        .view-btn:hover {
+            background: #dce8ff;
+        }
+
+
+        .member-btn {
+            background: #f4f0ff;
+
+            color: #7044c9;
+        }
+
+
+        .member-btn:hover {
+            background: #e9e0ff;
+        }
+
+
+        .spin-btn {
+            background: #fff5dc;
+
+            color: #b47700;
+        }
+
+
+        .spin-btn:hover {
+            background: #ffeab3;
+        }
+
+
+        .delete-btn {
+            background: #fff0f2;
+
+            color: #d90429;
+        }
+
+
+        .delete-btn:hover {
+            background: #ffdce1;
+        }
+
+
+        /* =====================================================
+           EMPTY STATE
+        ===================================================== */
+
+        .empty-state {
+            text-align: center;
+
+            padding: 55px 20px;
+
+            color: #aaa;
+        }
+
+
+        .empty-icon {
+            font-size: 45px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .empty-state h3 {
+            color: #555;
+
+            margin-bottom: 7px;
+        }
+
+
+        .empty-state p {
+            font-size: 12px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .empty-create-btn {
+            border: none;
+
+            background: #d90429;
+
+            color: white;
+
+            padding: 11px 18px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+
+        /* =====================================================
+           MODAL
+        ===================================================== */
+
+        .modal {
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(0, 0, 0, 0.55);
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+
+            z-index: 3000;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transition: 0.3s;
+        }
+
+
+        .modal.show {
+            opacity: 1;
+
+            visibility: visible;
+        }
+
+
+        .modal-box {
+            width: 100%;
+
+            max-width: 850px;
+
+            max-height: 92vh;
+
+            overflow-y: auto;
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            transform: translateY(25px);
+
+            transition: 0.3s;
+        }
+
+
+        .modal.show .modal-box {
+            transform: translateY(0);
+        }
+
+
+        /* MODAL HEADER */
+
+        .modal-header {
+            display: flex;
+
+            align-items: flex-start;
+            justify-content: space-between;
+
+            border-bottom: 1px solid #eeeeee;
+
+            padding-bottom: 18px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .modal-header h2 {
+            font-size: 22px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .modal-header p {
+            color: #999;
+
+            font-size: 12px;
+        }
+
+
+        .close {
+            border: none;
+
+            width: 36px;
+            height: 36px;
+
+            border-radius: 50%;
+
+            background: #f5f5f5;
+
+            font-size: 22px;
+
+            cursor: pointer;
+        }
+
+
+        .close:hover {
+            background: #fff0f2;
+
+            color: #d90429;
+        }
+
+
+        /* =====================================================
+           FORM
+        ===================================================== */
+
+        .form-section {
+            margin-bottom: 25px;
+        }
+
+
+        .form-section-title {
+            color: #d90429;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            margin-bottom: 15px;
+        }
+
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 16px;
+        }
+
+
+        .form-group {
+            display: flex;
+
+            flex-direction: column;
+        }
+
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+
+        .form-group label {
+            font-size: 12px;
+
+            font-weight: 600;
+
+            color: #444;
+
+            margin-bottom: 7px;
+        }
+
+
+        .required {
+            color: #d90429;
+        }
+
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+
+            width: 100%;
+
+            height: 44px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 8px;
+
+            padding: 0 12px;
+
+            outline: none;
+
+            background: #fafafa;
+
+            font-size: 13px;
+
+        }
+
+
+        .form-group textarea {
+            height: 90px;
+
+            padding-top: 12px;
+
+            resize: vertical;
+        }
+
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+
+            border-color: #d90429;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(217, 4, 41, 0.08);
+
+        }
+
+
+        /* CALCULATION */
+
+        .calculation {
+            background: #fff6f7;
+
+            border: 1px solid #ffd6dc;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            margin-top: 15px;
+        }
+
+
+        .calculation p {
+            color: #777;
+
+            font-size: 11px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .calculation strong {
+            color: #d90429;
+
+            font-size: 18px;
+        }
+
+
+        /* TERMS */
+
+        .terms {
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 8px;
+
+            margin-top: 12px;
+        }
+
+
+        .terms input {
+            margin-top: 3px;
+        }
+
+
+        .terms label {
+            color: #666;
+
+            font-size: 11px;
+
+            line-height: 1.5;
+        }
+
+
+        /* FORM ACTIONS */
+
+        .form-actions {
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            padding-top: 20px;
+
+            border-top: 1px solid #eeeeee;
+
+            margin-top: 20px;
+        }
+
+
+        .cancel-btn,
+        .submit-btn {
+            border: none;
+
+            padding: 12px 20px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-weight: 600;
+        }
+
+
+        .cancel-btn {
+            background: #eeeeee;
+
+            color: #555;
+        }
+
+
+        .submit-btn {
+            background: #d90429;
+
+            color: white;
+        }
+
+
+        .submit-btn:hover {
+            background: #b80322;
+        }
+
+
+        /* =====================================================
+           VIEW MODAL
+        ===================================================== */
+
+        .view-content {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 15px;
+        }
+
+
+        .view-box {
+            background: #fafafa;
+
+            padding: 15px;
+
+            border-radius: 9px;
+
+            border: 1px solid #eeeeee;
+        }
+
+
+        .view-box span {
+            display: block;
+
+            color: #999;
+
+            font-size: 10px;
+
+            margin-bottom: 6px;
+        }
+
+
+        .view-box strong {
+            font-size: 14px;
+        }
+
+
+        .view-box.full {
+            grid-column: 1 / -1;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE - TABLET
+        ===================================================== */
+
+        @media (max-width: 1100px) {
+
+            .stats {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .chit-details {
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE - SMALL TABLET
+        ===================================================== */
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                width: 70px;
+            }
+
+
+            .logo {
+                padding: 0;
+
+                justify-content: center;
+            }
+
+
+            .logo h2 {
+                display: none;
+            }
+
+
+            .nav {
+                padding: 20px 8px;
+            }
+
+
+            .nav a {
+                justify-content: center;
+
+                padding: 13px 5px;
+            }
+
+
+            .nav a span:last-child {
+                display: none;
+            }
+
+
+            .logout a {
+                justify-content: center;
+            }
+
+
+            .logout a span:last-child {
+                display: none;
+            }
+
+
+            .main {
+                margin-left: 70px;
+
+                width: calc(100% - 70px);
+
+                padding: 22px;
+            }
+
+
+            .create-banner {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+
+            .create-btn {
+                width: 100%;
+            }
+
+
+            .card-header {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+
+            .search-box {
+                width: 100%;
+            }
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE - MOBILE
+        ===================================================== */
+
+        @media (max-width: 600px) {
+
+            .main {
+                padding: 15px;
+            }
+
+
+            .topbar h1 {
+                font-size: 23px;
+            }
+
+
+            .admin-info {
+                display: none;
+            }
+
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+
+            .create-banner {
+                padding: 22px;
+            }
+
+
+            .banner-content h2 {
+                font-size: 20px;
+            }
+
+
+            .card {
+                padding: 17px;
+            }
+
+
+            .chit-item {
+                padding: 15px;
+            }
+
+
+            .chit-top {
+                flex-direction: column;
+            }
+
+
+            .chit-details {
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap: 14px;
+            }
+
+
+            .chit-actions {
+                display: grid;
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .action-btn {
+                width: 100%;
+            }
+
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+
+            .view-content {
+                grid-template-columns: 1fr;
+            }
+
+
+            .view-box.full {
+                grid-column: auto;
+            }
+
+
+            .modal-box {
+                padding: 20px;
+            }
+
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+
+            .cancel-btn,
+            .submit-btn {
+                width: 100%;
+            }
+
+        }
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="dashboard">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                ₹
+            </div>
+
+            <h2>
+                Chit<span>Picker</span>
+            </h2>
+
+        </div>
+
+
+        <nav class="nav">
+
+
+            <a href="dashboard.html"
+               class="active">
+
+                <span class="nav-icon">📊</span>
+
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <a href="members.html">
+
+                <span class="nav-icon">👥</span>
+
+                <span>Members</span>
+
+            </a>
+
+
+            <a href="payments.html">
+
+                <span class="nav-icon">💰</span>
+
+                <span>Payments</span>
+
+            </a>
+
+
+            <a href="picker.html">
+
+                <span class="nav-icon">🎯</span>
+
+                <span>Spin Picker</span>
+
+            </a>
+
+
+            <a href="winners.html">
+
+                <span class="nav-icon">🏆</span>
+
+                <span>Winners</span>
+
+            </a>
+
+
+            <!-- <a href="reports.html">
+
+                <span class="nav-icon">📈</span>
+
+                <span>Reports</span>
+
+            </a> -->
+
+
+            <a href="settings.html">
+
+                <span class="nav-icon">⚙️</span>
+
+                <span>Settings</span>
+
+            </a>
+
+
+        </nav>
+
+
+        <div class="logout">
+
+            <a href="../index.html">
+
+                <span class="nav-icon">🚪</span>
+
+                <span>Logout</span>
+
+            </a>
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>
+                    Dashboard
+                </h1>
+
+                <p>
+                    Manage all your ChitPicker groups
+                </p>
+
+            </div>
+
+
+            <div class="admin">
+
+                <div class="admin-avatar">
+                    A
+                </div>
+
+
+                <div class="admin-info">
+
+                    <strong>
+                        Admin
+                    </strong>
+
+                    <small>
+                        Administrator
+                    </small>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             CREATE BANNER
+        ================================================== -->
+
+        <section class="create-banner">
+
+
+            <div class="banner-content">
+
+                <h2>
+                    Create a New ChitPicker 🎯
+                </h2>
+
+
+                <p>
+                    Create a new chit group, add members,
+                    manage monthly payments and conduct
+                    the monthly lucky spin.
+                </p>
+
+            </div>
+
+
+            <button
+                class="create-btn"
+                id="openCreate">
+
+                + Create ChitPicker
+
+            </button>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             STATISTICS
+        ================================================== -->
+
+        <section class="stats">
+
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon red">
+                        🎯
+                    </div>
+
+                    <span class="stat-label">
+                        GROUPS
+                    </span>
+
+                </div>
+
+
+                <h2 id="groupCount">
+                    0
+                </h2>
+
+
+                <p>
+                    Total ChitPickers
+                </p>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon green">
+                        👥
+                    </div>
+
+                    <span class="stat-label">
+                        MEMBERS
+                    </span>
+
+                </div>
+
+
+                <h2 id="totalMembers">
+                    0
+                </h2>
+
+
+                <p>
+                    Across all groups
+                </p>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon yellow">
+                        ₹
+                    </div>
+
+                    <span class="stat-label">
+                        COLLECTION
+                    </span>
+
+                </div>
+
+
+                <h2 id="totalCollection">
+                    ₹0
+                </h2>
+
+
+                <p>
+                    Expected monthly
+                </p>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon blue">
+                        🏆
+                    </div>
+
+                    <span class="stat-label">
+                        WINNERS
+                    </span>
+
+                </div>
+
+
+                <h2 id="totalWinners">
+                    0
+                </h2>
+
+
+                <p>
+                    Completed members
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             ALL CHITPICKERS
+        ================================================== -->
+
+        <section class="card">
+
+
+            <div class="card-header">
+
+
+                <div>
+
+                    <h3>
+                        All ChitPickers
+                    </h3>
+
+                    <p>
+                        Manage all your created chit groups
+                    </p>
+
+                </div>
+
+
+                <div class="search-box">
+
+                    <span class="search-icon">
+                        🔍
+                    </span>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search ChitPicker..."
+                    >
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- LIST -->
+
+            <div
+                class="chit-list"
+                id="chitList">
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     CREATE CHITPICKER MODAL
+====================================================== -->
+
+<div
+    class="modal"
+    id="createModal">
+
+
+    <div class="modal-box">
+
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2>
+                    Create ChitPicker
+                </h2>
+
+                <p>
+                    Enter the details of your new chit group
+                </p>
+
+            </div>
+
+
+            <button
+                class="close"
+                id="closeModal">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+
+        <form id="chitForm">
+
+
+            <!-- ADMIN -->
+
+            <div class="form-section">
+
+
+                <div class="form-section-title">
+                    👤 Admin Information
+                </div>
+
+
+                <div class="form-grid">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Admin Name
+                            <span class="required">*</span>
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="adminName"
+                            placeholder="Enter admin name"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Admin Phone
+                            <span class="required">*</span>
+                        </label>
+
+
+                        <input
+                            type="tel"
+                            id="adminPhone"
+                            maxlength="10"
+                            placeholder="10 digit phone number"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group full">
+
+                        <label>
+                            Admin Email
+                        </label>
+
+
+                        <input
+                            type="email"
+                            id="adminEmail"
+                            placeholder="admin@example.com"
+                        >
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CHIT DETAILS -->
+
+            <div class="form-section">
+
+
+                <div class="form-section-title">
+                    🎯 Chit Information
+                </div>
+
+
+                <div class="form-grid">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Group / Chit Name
+                            <span class="required">*</span>
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="groupName"
+                            placeholder="Example: Friends Chit 2026"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Chit Type
+                        </label>
+
+
+                        <select id="chitType">
+
+                            <option value="Monthly">
+                                Monthly
+                            </option>
+
+                            <option value="Weekly">
+                                Weekly
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Monthly Contribution
+                            <span class="required">*</span>
+                        </label>
+
+
+                        <input
+                            type="number"
+                            id="monthlyPayment"
+                            min="1"
+                            value="5000"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Number of Members
+                            <span class="required">*</span>
+                        </label>
+
+
+                        <input
+                            type="number"
+                            id="members"
+                            min="2"
+                            max="100"
+                            value="20"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Duration
+                            <span class="required">*</span>
+                        </label>
+
+
+                        <input
+                            type="number"
+                            id="duration"
+                            min="1"
+                            max="120"
+                            value="20"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Duration Unit
+                        </label>
+
+
+                        <select id="durationUnit">
+
+                            <option value="months">
+                                Months
+                            </option>
+
+                            <option value="years">
+                                Years
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="calculation">
+
+                    <p>
+                        Expected monthly collection
+                    </p>
+
+
+                    <strong id="monthlyTotal">
+                        ₹1,00,000
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- SCHEDULE -->
+
+            <div class="form-section">
+
+
+                <div class="form-section-title">
+                    📅 Schedule
+                </div>
+
+
+                <div class="form-grid">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Start Date
+                            <span class="required">*</span>
+                        </label>
+
+
+                        <input
+                            type="date"
+                            id="startDate"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label>
+                            End Date
+                        </label>
+
+
+                        <input
+                            type="date"
+                            id="endDate"
+                            readonly
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Draw Frequency
+                        </label>
+
+
+                        <select id="drawFrequency">
+
+                            <option value="Every Month">
+                                Every Month
+                            </option>
+
+                            <option value="Every Week">
+                                Every Week
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label>
+                            First Draw Date
+                        </label>
+
+
+                        <input
+                            type="date"
+                            id="drawDate"
+                        >
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- NOTES -->
+
+            <div class="form-section">
+
+
+                <div class="form-section-title">
+                    📝 Additional Information
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Description / Notes
+                    </label>
+
+
+                    <textarea
+                        id="description"
+                        placeholder="Enter notes about this chit group..."
+                    ></textarea>
+
+                </div>
+
+
+
+                <div class="terms">
+
+                    <input
+                        type="checkbox"
+                        id="terms"
+                        required
+                    >
+
+
+                    <label for="terms">
+
+                        I confirm that the information entered
+                        above is correct and I agree to manage
+                        this chit group according to the configured
+                        rules.
+
+                    </label>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- BUTTONS -->
+
+            <div class="form-actions">
+
+
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    id="cancelBtn">
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="submit-btn">
+
+                    ✓ Create ChitPicker
+
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     VIEW CHIT MODAL
+====================================================== -->
+
+<div
+    class="modal"
+    id="viewModal">
+
+
+    <div class="modal-box">
+
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2 id="viewTitle">
+                    ChitPicker Details
+                </h2>
+
+                <p>
+                    Complete information about this group
+                </p>
+
+            </div>
+
+
+            <button
+                class="close"
+                id="closeView">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <div
+            class="view-content"
+            id="viewContent">
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+const createModal =
+    document.getElementById("createModal");
+
+const viewModal =
+    document.getElementById("viewModal");
+
+const chitForm =
+    document.getElementById("chitForm");
+
+const chitList =
+    document.getElementById("chitList");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+
+
+/* =====================================================
+   OPEN / CLOSE CREATE MODAL
+===================================================== */
+
+document
+    .getElementById("openCreate")
+    .addEventListener("click", function () {
+
+        createModal.classList.add("show");
+
+    });
+
+
+document
+    .getElementById("closeModal")
+    .addEventListener("click", closeCreate);
+
+
+document
+    .getElementById("cancelBtn")
+    .addEventListener("click", closeCreate);
+
+
+function closeCreate() {
+
+    createModal.classList.remove("show");
+
+}
+
+
+/* =====================================================
+   CLOSE VIEW MODAL
+===================================================== */
+
+document
+    .getElementById("closeView")
+    .addEventListener("click", function () {
+
+        viewModal.classList.remove("show");
+
+    });
+
+
+
+/* =====================================================
+   LOCAL STORAGE
+===================================================== */
+
+let chitPickers =
+    JSON.parse(
+        localStorage.getItem("chitPickers")
+    ) || [];
+
+
+
+/* =====================================================
+   FORM ELEMENTS
+===================================================== */
+
+const monthlyPayment =
+    document.getElementById("monthlyPayment");
+
+const members =
+    document.getElementById("members");
+
+const duration =
+    document.getElementById("duration");
+
+const durationUnit =
+    document.getElementById("durationUnit");
+
+const startDate =
+    document.getElementById("startDate");
+
+const endDate =
+    document.getElementById("endDate");
+
+const drawDate =
+    document.getElementById("drawDate");
+
+const monthlyTotal =
+    document.getElementById("monthlyTotal");
+
+
+
+/* =====================================================
+   DEFAULT DATE
+===================================================== */
+
+const today =
+    new Date();
+
+const todayString =
+    today.toISOString().split("T")[0];
+
+startDate.value =
+    todayString;
+
+drawDate.value =
+    todayString;
+
+
+
+/* =====================================================
+   CALCULATE MONTHLY TOTAL
+===================================================== */
+
+function calculateTotal() {
+
+    const payment =
+        Number(monthlyPayment.value) || 0;
+
+    const memberCount =
+        Number(members.value) || 0;
+
+    const total =
+        payment * memberCount;
+
+    monthlyTotal.textContent =
+        "₹" +
+        total.toLocaleString("en-IN");
+
+}
+
+
+monthlyPayment.addEventListener(
+    "input",
+    calculateTotal
+);
+
+
+members.addEventListener(
+    "input",
+    calculateTotal
+);
+
+
+
+/* =====================================================
+   CALCULATE END DATE
+===================================================== */
+
+function calculateEndDate() {
+
+    if (!startDate.value ||
+        !duration.value) {
+
+        return;
+
+    }
+
+
+    const date =
+        new Date(startDate.value);
+
+    const value =
+        Number(duration.value);
+
+
+    if (durationUnit.value === "months") {
+
+        date.setMonth(
+            date.getMonth() + value
+        );
+
+    } else {
+
+        date.setFullYear(
+            date.getFullYear() + value
+        );
+
+    }
+
+
+    endDate.value =
+        date.toISOString().split("T")[0];
+
+}
+
+
+startDate.addEventListener(
+    "change",
+    calculateEndDate
+);
+
+
+duration.addEventListener(
+    "input",
+    calculateEndDate
+);
+
+
+durationUnit.addEventListener(
+    "change",
+    calculateEndDate
+);
+
+
+calculateTotal();
+
+calculateEndDate();
+
+
+
+/* =====================================================
+   DRAW DATE
+===================================================== */
+
+startDate.addEventListener(
+    "change",
+    function () {
+
+        drawDate.value =
+            startDate.value;
+
+    }
+);
+
+
+
+/* =====================================================
+   CREATE CHITPICKER
+===================================================== */
+
+chitForm.addEventListener(
+    "submit",
+    function (event) {
+
+        event.preventDefault();
+
+
+        const phone =
+            document
+                .getElementById("adminPhone")
+                .value.trim();
+
+
+        /* PHONE VALIDATION */
+
+        if (!/^[0-9]{10}$/.test(phone)) {
+
+            alert(
+                "Please enter a valid 10-digit phone number."
+            );
+
+            return;
+
+        }
+
+
+        const chitData = {
+
+            id:
+                Date.now(),
+
+            adminName:
+                document
+                    .getElementById("adminName")
+                    .value.trim(),
+
+            adminPhone:
+                phone,
+
+            adminEmail:
+                document
+                    .getElementById("adminEmail")
+                    .value.trim(),
+
+            groupName:
+                document
+                    .getElementById("groupName")
+                    .value.trim(),
+
+            chitType:
+                document
+                    .getElementById("chitType")
+                    .value,
+
+            monthlyPayment:
+                Number(
+                    monthlyPayment.value
+                ),
+
+            members:
+                Number(
+                    members.value
+                ),
+
+            duration:
+                Number(
+                    duration.value
+                ),
+
+            durationUnit:
+                durationUnit.value,
+
+            startDate:
+                startDate.value,
+
+            endDate:
+                endDate.value,
+
+            drawFrequency:
+                document
+                    .getElementById("drawFrequency")
+                    .value,
+
+            firstDrawDate:
+                drawDate.value,
+
+            description:
+                document
+                    .getElementById("description")
+                    .value.trim(),
+
+            currentMonth:
+                1,
+
+            winners:
+                [],
+
+            status:
+                "Active"
+
+        };
+
+
+        /* ADD TO ARRAY */
+
+        chitPickers.push(chitData);
+
+
+        /* SAVE */
+
+        localStorage.setItem(
+            "chitPickers",
+            JSON.stringify(chitPickers)
+        );
+
+
+        /* UPDATE SCREEN */
+
+        displayChitPickers();
+
+        updateStatistics();
+
+
+        /* CLOSE */
+
+        closeCreate();
+
+
+        /* RESET */
+
+        chitForm.reset();
+
+
+        monthlyPayment.value =
+            5000;
+
+        members.value =
+            20;
+
+        duration.value =
+            20;
+
+        startDate.value =
+            todayString;
+
+        drawDate.value =
+            todayString;
+
+
+        calculateTotal();
+
+        calculateEndDate();
+
+
+        alert(
+            "ChitPicker created successfully!"
+        );
+
+    }
+);
+
+
+
+/* =====================================================
+   DISPLAY ALL CHITPICKERS
+===================================================== */
+
+function displayChitPickers(
+    searchText = ""
+) {
+
+    chitList.innerHTML = "";
+
+
+    const filtered =
+        chitPickers.filter(function (chit) {
+
+            return (
+
+                chit.groupName
+                    .toLowerCase()
+                    .includes(
+                        searchText.toLowerCase()
+                    )
+
+                ||
+
+                chit.adminName
+                    .toLowerCase()
+                    .includes(
+                        searchText.toLowerCase()
+                    )
+
+            );
+
+        });
+
+
+    /* EMPTY */
+
+    if (filtered.length === 0) {
+
+        chitList.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    🎯
+                </div>
+
+                <h3>
+                    ${
+                        chitPickers.length === 0
+                        ? "No ChitPickers Yet"
+                        : "No ChitPicker Found"
+                    }
+                </h3>
+
+                <p>
+                    ${
+                        chitPickers.length === 0
+                        ? "Create your first ChitPicker to get started."
+                        : "Try searching with another name."
+                    }
+                </p>
+
+                ${
+                    chitPickers.length === 0
+                    ? `
+                        <button
+                            class="empty-create-btn"
+                            onclick="openCreateFromEmpty()">
+
+                            + Create ChitPicker
+
+                        </button>
+                    `
+                    : ""
+                }
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /* DISPLAY */
+
+    filtered.forEach(function (chit) {
+
+        const monthlyCollection =
+            chit.monthlyPayment *
+            chit.members;
+
+
+        const winnerCount =
+            chit.winners
+                ? chit.winners.length
+                : 0;
+
+
+        const item =
+            document.createElement("div");
+
+
+        item.className =
+            "chit-item";
+
+
+        item.innerHTML = `
+
+            <div class="chit-top">
+
+                <div class="chit-title">
+
+                    <div class="chit-icon">
+                        🎯
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            ${escapeHTML(chit.groupName)}
+                        </h3>
+
+                        <p>
+                            Admin:
+                            ${escapeHTML(chit.adminName)}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <span class="status">
+                    ${chit.status}
+                </span>
+
+            </div>
+
+
+
+            <div class="chit-details">
+
+
+                <div class="detail">
+
+                    <span>
+                        MEMBERS
+                    </span>
+
+                    <strong>
+                        ${chit.members}
+                    </strong>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span>
+                        MONTHLY PAYMENT
+                    </span>
+
+                    <strong>
+                        ₹${chit.monthlyPayment.toLocaleString("en-IN")}
+                    </strong>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span>
+                        MONTHLY COLLECTION
+                    </span>
+
+                    <strong>
+                        ₹${monthlyCollection.toLocaleString("en-IN")}
+                    </strong>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span>
+                        DURATION
+                    </span>
+
+                    <strong>
+                        ${chit.duration}
+                        ${chit.durationUnit}
+                    </strong>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span>
+                        WINNERS
+                    </span>
+
+                    <strong>
+                        ${winnerCount}
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="chit-actions">
+
+
+                <button
+                    class="action-btn view-btn"
+                    onclick="viewChit(${chit.id})">
+
+                    👁 View
+
+                </button>
+
+
+                <button
+                    class="action-btn member-btn"
+                    onclick="openMembers(${chit.id})">
+
+                    👥 Members
+
+                </button>
+
+
+                <button
+                    class="action-btn spin-btn"
+                    onclick="openPicker(${chit.id})">
+
+                    🎯 Spin
+
+                </button>
+
+
+                <button
+                    class="action-btn delete-btn"
+                    onclick="deleteChit(${chit.id})">
+
+                    🗑 Delete
+
+                </button>
+
+
+            </div>
+
+        `;
+
+
+        chitList.appendChild(item);
+
+    });
+
+}
+
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+searchInput.addEventListener(
+    "input",
+    function () {
+
+        displayChitPickers(
+            searchInput.value
+        );
+
+    }
+);
+
+
+
+/* =====================================================
+   VIEW CHITPICKER
+===================================================== */
+
+function viewChit(id) {
+
+    const chit =
+        chitPickers.find(
+            function (item) {
+
+                return item.id === id;
+
+            }
+        );
+
+
+    if (!chit) return;
+
+
+    document.getElementById(
+        "viewTitle"
+    ).textContent =
+        chit.groupName;
+
+
+    const collection =
+        chit.monthlyPayment *
+        chit.members;
+
+
+    document.getElementById(
+        "viewContent"
+    ).innerHTML = `
+
+        <div class="view-box">
+
+            <span>
+                ADMIN NAME
+            </span>
+
+            <strong>
+                ${escapeHTML(chit.adminName)}
+            </strong>
+
+        </div>
+
+
+        <div class="view-box">
+
+            <span>
+                ADMIN PHONE
+            </span>
+
+            <strong>
+                ${escapeHTML(chit.adminPhone)}
+            </strong>
+
+        </div>
+
+
+        <div class="view-box">
+
+            <span>
+                ADMIN EMAIL
+            </span>
+
+            <strong>
+                ${escapeHTML(chit.adminEmail || "Not provided")}
+            </strong>
+
+        </div>
+
+
+        <div class="view-box">
+
+            <span>
+                CHIT TYPE
+            </span>
+
+            <strong>
+                ${chit.chitType}
+            </strong>
+
+        </div>
+
+
+        <div class="view-box">
+
+            <span>
+                MEMBERS
+            </span>
+
+            <strong>
+                ${chit.members}
+            </strong>
+
+        </div>
+
+
+        <div class="view-box">
+
+            <span>
+                MONTHLY PAYMENT
+            </span>
+
+            <strong>
+                ₹${chit.monthlyPayment.toLocaleString("en-IN")}
+            </strong>
+
+        </div>
+
+
+        <div class="view-box">
+
+            <span>
+                MONTHLY COLLECTION
+            </span>
+
+            <strong>
+                ₹${collection.toLocaleString("en-IN")}
+            </strong>
+
+        </div>
+
+
+        <div class="view-box">
+
+            <span>
+                DURATION
+            </span>
+
+            <strong>
+                ${chit.duration}
+                ${chit.durationUnit}
+            </strong>
+
+        </div>
+
+
+        <div class="view-box">
+
+            <span>
+                START DATE
+            </span>
+
+            <strong>
+                ${chit.startDate}
+            </strong>
+
+        </div>
+
+
+        <div class="view-box">
+
+            <span>
+                END DATE
+            </span>
+
+            <strong>
+                ${chit.endDate}
+            </strong>
+
+        </div>
+
+
+        <div class="view-box">
+
+            <span>
+                DRAW FREQUENCY
+            </span>
+
+            <strong>
+                ${chit.drawFrequency}
+            </strong>
+
+        </div>
+
+
+        <div class="view-box">
+
+            <span>
+                FIRST DRAW
+            </span>
+
+            <strong>
+                ${chit.firstDrawDate}
+            </strong>
+
+        </div>
+
+
+        <div class="view-box">
+
+            <span>
+                CURRENT MONTH
+            </span>
+
+            <strong>
+                ${chit.currentMonth}
+            </strong>
+
+        </div>
+
+
+        <div class="view-box">
+
+            <span>
+                WINNERS
+            </span>
+
+            <strong>
+                ${chit.winners.length}
+            </strong>
+
+        </div>
+
+
+        <div class="view-box full">
+
+            <span>
+                DESCRIPTION
+            </span>
+
+            <strong>
+                ${escapeHTML(
+                    chit.description ||
+                    "No description"
+                )}
+            </strong>
+
+        </div>
+
+    `;
+
+
+    viewModal.classList.add("show");
+
+}
+
+
+
+/* =====================================================
+   DELETE CHITPICKER
+===================================================== */
+
+function deleteChit(id) {
+
+    const chit =
+        chitPickers.find(
+            function (item) {
+
+                return item.id === id;
+
+            }
+        );
+
+
+    if (!chit) return;
+
+
+    const confirmation =
+        confirm(
+            `Are you sure you want to delete "${chit.groupName}"?`
+        );
+
+
+    if (!confirmation) {
+
+        return;
+
+    }
+
+
+    chitPickers =
+        chitPickers.filter(
+            function (item) {
+
+                return item.id !== id;
+
+            }
+        );
+
+
+    localStorage.setItem(
+        "chitPickers",
+        JSON.stringify(chitPickers)
+    );
+
+
+    displayChitPickers();
+
+    updateStatistics();
+
+
+    alert(
+        "ChitPicker deleted successfully."
+    );
+
+}
+
+
+
+/* =====================================================
+   MEMBERS BUTTON
+===================================================== */
+
+function openMembers(id) {
+
+    localStorage.setItem(
+        "selectedChitId",
+        id
+    );
+
+
+    window.location.href =
+        "members.html";
+
+}
+
+
+
+/* =====================================================
+   SPIN BUTTON
+===================================================== */
+
+function openPicker(id) {
+
+    localStorage.setItem(
+        "selectedChitId",
+        id
+    );
+
+
+    window.location.href =
+        "picker.html";
+
+}
+
+
+
+/* =====================================================
+   EMPTY STATE CREATE BUTTON
+===================================================== */
+
+function openCreateFromEmpty() {
+
+    createModal.classList.add(
+        "show"
+    );
+
+}
+
+
+
+/* =====================================================
+   UPDATE STATISTICS
+===================================================== */
+
+function updateStatistics() {
+
+    let totalMembers = 0;
+
+    let totalCollection = 0;
+
+    let totalWinners = 0;
+
+
+    chitPickers.forEach(
+        function (chit) {
+
+            totalMembers +=
+                Number(chit.members);
+
+
+            totalCollection +=
+                Number(
+                    chit.monthlyPayment *
+                    chit.members
+                );
+
+
+            totalWinners +=
+                chit.winners
+                    ? chit.winners.length
+                    : 0;
+
+        }
+    );
+
+
+    document.getElementById(
+        "groupCount"
+    ).textContent =
+        chitPickers.length;
+
+
+    document.getElementById(
+        "totalMembers"
+    ).textContent =
+        totalMembers;
+
+
+    document.getElementById(
+        "totalCollection"
+    ).textContent =
+        "₹" +
+        totalCollection.toLocaleString(
+            "en-IN"
+        );
+
+
+    document.getElementById(
+        "totalWinners"
+    ).textContent =
+        totalWinners;
+
+}
+
+
+
+/* =====================================================
+   HTML SECURITY
+===================================================== */
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+
+/* =====================================================
+   INITIAL LOAD
+===================================================== */
+
+displayChitPickers();
+
+updateStatistics();
+
+
+</script>
+
+
+</body>
+
+</html>
+```

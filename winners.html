@@ -1,0 +1,2549 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>ChitPicker - Winners</title>
+
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f4f6f9;
+
+            color: #222;
+
+            min-height: 100vh;
+
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+
+            position: fixed;
+
+            left: 0;
+
+            top: 0;
+
+            width: 250px;
+
+            height: 100vh;
+
+            background: white;
+
+            border-right:
+                1px solid #e5e5e5;
+
+            z-index: 1000;
+
+        }
+
+
+        .logo {
+
+            height: 80px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 0 24px;
+
+            border-bottom:
+                1px solid #eee;
+
+        }
+
+
+        .logo-icon {
+
+            width: 43px;
+
+            height: 43px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #d90429,
+                    #ef233c
+                );
+
+            color: white;
+
+            border-radius: 12px;
+
+            font-size: 21px;
+
+            font-weight: bold;
+
+        }
+
+
+        .logo h2 {
+
+            font-size: 20px;
+
+        }
+
+
+        .logo h2 span {
+
+            color: #d90429;
+
+        }
+
+
+        /* =====================================================
+           NAVIGATION
+        ===================================================== */
+
+        .nav {
+
+            padding: 24px 14px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 5px;
+
+        }
+
+
+        .nav a {
+
+            text-decoration: none;
+
+            color: #6b7280;
+
+            padding: 13px 15px;
+
+            border-radius: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+
+        }
+
+
+        .nav a:hover {
+
+            background: #fff1f3;
+
+            color: #d90429;
+
+        }
+
+
+        .nav a.active {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #d90429,
+                    #ef233c
+                );
+
+            color: white;
+
+        }
+
+
+        .nav-icon {
+
+            width: 25px;
+
+            text-align: center;
+
+            font-size: 17px;
+
+        }
+                .logout {
+            position: absolute;
+
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+        }
+
+
+        .logout a {
+            text-decoration: none;
+
+            color: #777;
+
+            padding: 13px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            border-radius: 10px;
+        }
+
+
+        .logout a:hover {
+            background: #fff0f2;
+            color: #d90429;
+        }
+        .logout-btn {
+    text-decoration: none;
+    color: #d90429;
+    padding: 13px 15px;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: 0.3s;
+    margin-top: 180px;
+}
+
+.logout-btn:hover {
+    background: #fff1f3;
+    color: #b00020;
+}
+
+.logout-btn .nav-icon {
+    width: 25px;
+    text-align: center;
+    font-size: 17px;
+}
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .main {
+
+            margin-left: 250px;
+
+            width:
+                calc(
+                    100% - 250px
+                );
+
+            padding: 30px;
+
+        }
+
+
+        /* =====================================================
+           TOPBAR
+        ===================================================== */
+
+        .topbar {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .topbar-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+        }
+
+
+        .back-btn {
+
+            width: 41px;
+
+            height: 41px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: white;
+
+            border:
+                1px solid #ddd;
+
+            border-radius: 10px;
+
+            text-decoration: none;
+
+            color: #555;
+
+            font-size: 18px;
+
+        }
+
+
+        .back-btn:hover {
+
+            color: #d90429;
+
+            border-color:
+                #d90429;
+
+        }
+
+
+        .topbar h1 {
+
+            font-size: 27px;
+
+            margin-bottom: 4px;
+
+        }
+
+
+        .topbar p {
+
+            color: #999;
+
+            font-size: 12px;
+
+        }
+
+
+        .admin {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+        .admin-avatar {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #d90429,
+                    #ef233c
+                );
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: bold;
+
+        }
+
+
+        .admin-info {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 3px;
+
+        }
+
+
+        .admin-info strong {
+
+            font-size: 14px;
+
+        }
+
+
+        .admin-info small {
+
+            color: #999;
+
+            font-size: 11px;
+
+        }
+
+
+        /* =====================================================
+           GROUP HEADER
+        ===================================================== */
+
+        .group-header {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #9d001d,
+                    #d90429,
+                    #ef233c
+                );
+
+            color: white;
+
+            padding: 24px;
+
+            border-radius: 16px;
+
+            margin-bottom: 20px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+        }
+
+
+        .group-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+        }
+
+
+        .group-icon {
+
+            width: 55px;
+
+            height: 55px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.15
+                );
+
+            border-radius: 13px;
+
+            font-size: 25px;
+
+        }
+
+
+        .group-title h2 {
+
+            font-size: 21px;
+
+            margin-bottom: 6px;
+
+        }
+
+
+        .group-title p {
+
+            font-size: 11px;
+
+            opacity: 0.9;
+
+        }
+
+
+        .group-details {
+
+            display: flex;
+
+            gap: 25px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .detail {
+
+            text-align: center;
+
+        }
+
+
+        .detail strong {
+
+            display: block;
+
+            font-size: 18px;
+
+            margin-bottom: 4px;
+
+        }
+
+
+        .detail span {
+
+            font-size: 9px;
+
+            opacity: 0.8;
+
+        }
+
+
+        /* =====================================================
+           SUMMARY CARDS
+        ===================================================== */
+
+        .summary {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    4,
+                    1fr
+                );
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .summary-card {
+
+            background: white;
+
+            padding: 20px;
+
+            border-radius: 14px;
+
+            border:
+                1px solid #eee;
+
+            box-shadow:
+                0 4px 18px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.025
+                );
+
+        }
+
+
+        .summary-card small {
+
+            color: #999;
+
+            font-size: 10px;
+
+        }
+
+
+        .summary-card h2 {
+
+            margin-top: 8px;
+
+            font-size: 23px;
+
+        }
+
+
+        /* =====================================================
+           WINNER CARD
+        ===================================================== */
+
+        .card {
+
+            background: white;
+
+            border-radius: 16px;
+
+            border:
+                1px solid #eee;
+
+            padding: 22px;
+
+            box-shadow:
+                0 4px 18px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.025
+                );
+
+        }
+
+
+        .card-header {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .card-header h3 {
+
+            font-size: 18px;
+
+            margin-bottom: 4px;
+
+        }
+
+
+        .card-header p {
+
+            color: #999;
+
+            font-size: 11px;
+
+        }
+
+
+        .header-buttons {
+
+            display: flex;
+
+            gap: 8px;
+
+        }
+
+
+        .btn {
+
+            border: none;
+
+            padding: 10px 14px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+        }
+
+
+        .print-btn {
+
+            background:
+                #222;
+
+            color: white;
+
+        }
+
+
+        .dashboard-btn {
+
+            background:
+                #d90429;
+
+            color: white;
+
+        }
+
+
+        /* =====================================================
+           SEARCH
+        ===================================================== */
+
+        .search {
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .search input {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border:
+                1px solid #ddd;
+
+            border-radius: 9px;
+
+            outline: none;
+
+            font-size: 12px;
+
+        }
+
+
+        .search input:focus {
+
+            border-color:
+                #d90429;
+
+        }
+
+
+        /* =====================================================
+           TABLE
+        ===================================================== */
+
+        .table-wrapper {
+
+            overflow-x: auto;
+
+            width: 100%;
+
+        }
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse:
+                collapse;
+
+            min-width: 900px;
+
+        }
+
+
+        th {
+
+            background: #fafafa;
+
+            color: #888;
+
+            text-align: left;
+
+            padding: 13px;
+
+            font-size: 9px;
+
+        }
+
+
+        td {
+
+            padding: 14px 13px;
+
+            border-bottom:
+                1px solid #eee;
+
+            font-size: 11px;
+
+        }
+
+
+        tbody tr:hover td {
+
+            background: #fffafb;
+
+        }
+
+
+        /* =====================================================
+           WINNER
+        ===================================================== */
+
+        .winner-info {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+        .winner-avatar {
+
+            width: 38px;
+
+            height: 38px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffd166,
+                    #f4a261
+                );
+
+            color: #704800;
+
+            font-weight: bold;
+
+        }
+
+
+        .winner-name {
+
+            font-weight: bold;
+
+            font-size: 12px;
+
+            margin-bottom: 3px;
+
+        }
+
+
+        .member-id {
+
+            font-size: 9px;
+
+            color: #999;
+
+        }
+
+
+        .month {
+
+            background:
+                #fff0f2;
+
+            color:
+                #d90429;
+
+            padding: 6px 10px;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+
+            font-size: 9px;
+
+        }
+
+
+        .amount {
+
+            font-weight: bold;
+
+            color: #168542;
+
+        }
+
+
+        .trophy {
+
+            font-size: 18px;
+
+        }
+
+
+        /* =====================================================
+           EMPTY
+        ===================================================== */
+
+        .empty {
+
+            text-align: center;
+
+            padding: 55px 20px;
+
+            color: #999;
+
+        }
+
+
+        .empty-icon {
+
+            font-size: 45px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .empty h3 {
+
+            color: #555;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .empty p {
+
+            font-size: 11px;
+
+        }
+
+
+        /* =====================================================
+           NO GROUP
+        ===================================================== */
+
+        .no-group {
+
+            background: white;
+
+            padding: 50px;
+
+            border-radius: 16px;
+
+            text-align: center;
+
+            max-width: 500px;
+
+            margin: 70px auto;
+
+        }
+
+
+        .no-group-icon {
+
+            font-size: 50px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .no-group h2 {
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .no-group p {
+
+            color: #888;
+
+            font-size: 12px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .no-group a {
+
+            display: inline-block;
+
+            text-decoration: none;
+
+            background: #d90429;
+
+            color: white;
+
+            padding: 12px 18px;
+
+            border-radius: 8px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+        }
+
+
+        /* =====================================================
+           PRINT
+        ===================================================== */
+
+        @media print {
+
+            .sidebar,
+            .topbar,
+            .header-buttons,
+            .search {
+
+                display: none !important;
+
+            }
+
+
+            .main {
+
+                margin-left: 0;
+
+                width: 100%;
+
+                padding: 0;
+
+            }
+
+
+            body {
+
+                background: white;
+
+            }
+
+
+            .group-header {
+
+                color: black;
+
+                background: white;
+
+                border:
+                    1px solid #ddd;
+
+            }
+
+
+            .summary-card,
+            .card {
+
+                box-shadow: none;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE 950
+        ===================================================== */
+
+        @media (max-width: 950px) {
+
+            .summary {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        1fr
+                    );
+
+            }
+
+
+            .group-header {
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    flex-start;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE 800
+        ===================================================== */
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+
+                width: 70px;
+
+            }
+
+
+            .logo {
+
+                padding: 0;
+
+                justify-content:
+                    center;
+
+            }
+
+
+            .logo h2 {
+
+                display: none;
+
+            }
+
+
+            .nav {
+
+                padding:
+                    20px 8px;
+
+            }
+
+
+            .nav a {
+
+                justify-content:
+                    center;
+
+                padding:
+                    13px 5px;
+
+            }
+
+
+            .nav a span:last-child {
+
+                display: none;
+
+            }
+
+
+            .main {
+
+                margin-left: 70px;
+
+                width:
+                    calc(
+                        100% - 70px
+                    );
+
+                padding: 22px;
+
+            }
+
+
+            .group-details {
+
+                width: 100%;
+
+                justify-content:
+                    space-between;
+
+            }
+
+        }
+        .logout {
+
+                left: 8px;
+                right: 8px;
+            }
+
+
+            .logout a {
+
+                justify-content: center;
+            }
+
+
+            .logout a span:last-child {
+
+                display: none;
+            }
+
+
+        /* =====================================================
+           RESPONSIVE 600
+        ===================================================== */
+
+        @media (max-width: 600px) {
+
+            .main {
+
+                padding: 14px;
+
+            }
+
+
+            .topbar h1 {
+
+                font-size: 22px;
+
+            }
+
+
+            .admin-info {
+
+                display: none;
+
+            }
+
+
+            .summary {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .group-header {
+
+                padding: 18px;
+
+            }
+
+
+            .group-title h2 {
+
+                font-size: 17px;
+
+            }
+
+
+            .group-details {
+
+                gap: 12px;
+
+            }
+
+
+            .detail strong {
+
+                font-size: 15px;
+
+            }
+
+
+            .card {
+
+                padding: 16px;
+
+            }
+
+
+            .card-header {
+
+                align-items:
+                    flex-start;
+
+                flex-direction:
+                    column;
+
+            }
+
+
+            .header-buttons {
+
+                width: 100%;
+
+            }
+
+
+            .btn {
+
+                flex: 1;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+ ```html
+<!-- =====================================================
+     SAME SIDEBAR FOR ALL PAGES
+====================================================== -->
+
+<aside class="sidebar">
+
+    <!-- LOGO -->
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            ₹
+        </div>
+
+        <h2>
+            Chit<span>Picker</span>
+        </h2>
+
+    </div>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="nav">
+
+        <!-- DASHBOARD -->
+
+        <a href="dashboard.html">
+
+            <span class="nav-icon">
+                📊
+            </span>
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+
+
+        <!-- MEMBERS -->
+
+        <a href="members.html">
+
+            <span class="nav-icon">
+                👥
+            </span>
+
+            <span>
+                Members
+            </span>
+
+        </a>
+
+
+        <!-- PAYMENTS -->
+
+        <a href="payments.html">
+
+            <span class="nav-icon">
+                💰
+            </span>
+
+            <span>
+                Payments
+            </span>
+
+        </a>
+
+
+        <!-- SPIN PICKER -->
+
+        <a href="picker.html">
+
+            <span class="nav-icon">
+                🎯
+            </span>
+
+            <span>
+                Spin Picker
+            </span>
+
+        </a>
+
+
+        <!-- WINNERS -->
+
+        <a
+            href="winners.html"
+            class="active">
+
+            <span class="nav-icon">
+                🏆
+            </span>
+
+            <span>
+                Winners
+            </span>
+
+        </a>
+
+
+        <!-- REPORTS -->
+
+        <!-- <a href="reports.html">
+
+            <span class="nav-icon">
+                📈
+            </span>
+
+            <span>
+                Reports
+            </span>
+
+        </a> -->
+
+
+        <!-- SETTINGS -->
+
+        <a href="settings.html">
+
+            <span class="nav-icon">
+                ⚙️
+            </span>
+
+            <span>
+                Settings
+            </span>
+
+        </a>
+
+
+        <!-- LOGOUT -->
+
+         <a href="#" class="logout-btn" onclick="logout()">
+            <span class="nav-icon">🚪</span>
+            <span>Logout</span>
+         </a>
+
+    </div>
+
+    </nav>
+
+</aside>
+```
+
+```
+
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+
+            <div class="topbar-left">
+
+
+                <a
+                    href="dashboard.html"
+                    class="back-btn">
+
+                    ←
+
+                </a>
+
+
+                <div>
+
+                    <h1>
+                        Winners
+                    </h1>
+
+                    <p>
+                        Complete winner history
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="admin">
+
+
+                <div
+                    class="admin-avatar"
+                    id="adminAvatar">
+
+                    A
+
+                </div>
+
+
+                <div class="admin-info">
+
+                    <strong
+                        id="adminTop">
+
+                        Admin
+
+                    </strong>
+
+
+                    <small>
+                        Administrator
+                    </small>
+
+                </div>
+
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- =================================================
+             CONTENT
+        ================================================== -->
+
+        <div id="pageContent">
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+
+        /* =====================================================
+           LOAD DATA
+        ===================================================== */
+
+        let chitPickers =
+
+            JSON.parse(
+                localStorage.getItem(
+                    "chitPickers"
+                )
+            ) || [];
+
+
+        let selectedChitId =
+
+            localStorage.getItem(
+                "selectedChitId"
+            );
+
+
+        let chit =
+
+            chitPickers.find(
+                function (item) {
+
+                    return String(
+                        item.id
+                    ) ===
+                    String(
+                        selectedChitId
+                    );
+
+                }
+            );
+
+
+
+        /* =====================================================
+           CHECK GROUP
+        ===================================================== */
+
+        if (!chit) {
+
+
+            document.getElementById(
+                "pageContent"
+            ).innerHTML = `
+
+                <div class="no-group">
+
+                    <div class="no-group-icon">
+                        🏆
+                    </div>
+
+                    <h2>
+                        No ChitPicker Selected
+                    </h2>
+
+                    <p>
+                        Please select a ChitPicker
+                        from the Dashboard first.
+                    </p>
+
+                    <a href="dashboard.html">
+                        Go to Dashboard
+                    </a>
+
+                </div>
+
+            `;
+
+
+        } else {
+
+
+            initialize();
+
+        }
+
+
+
+        /* =====================================================
+           INITIALIZE
+        ===================================================== */
+
+        function initialize() {
+
+
+            if (
+                !Array.isArray(
+                    chit.memberList
+                )
+            ) {
+
+                chit.memberList = [];
+
+            }
+
+
+            if (
+                !Array.isArray(
+                    chit.winnerHistory
+                )
+            ) {
+
+                chit.winnerHistory = [];
+
+            }
+
+
+            displayPage();
+
+        }
+
+
+
+        /* =====================================================
+           SAVE
+        ===================================================== */
+
+        function saveData() {
+
+
+            const index =
+                chitPickers.findIndex(
+                    function (item) {
+
+                        return String(
+                            item.id
+                        ) ===
+                        String(
+                            chit.id
+                        );
+
+                    }
+                );
+
+
+            if (index !== -1) {
+
+                chitPickers[index] =
+                    chit;
+
+            }
+
+
+            localStorage.setItem(
+                "chitPickers",
+                JSON.stringify(
+                    chitPickers
+                )
+            );
+
+        }
+
+
+
+        /* =====================================================
+           DISPLAY PAGE
+        ===================================================== */
+
+        function displayPage() {
+
+
+            const totalMembers =
+                chit.memberList.length;
+
+
+            const totalWinners =
+                chit.winnerHistory.length;
+
+
+            const remaining =
+                Math.max(
+                    0,
+                    totalMembers -
+                    totalWinners
+                );
+
+
+            const monthlyPayment =
+                Number(
+                    chit.monthlyPayment ||
+                    0
+                );
+
+
+            const totalCollection =
+                totalMembers *
+                monthlyPayment;
+
+
+            const currentMonth =
+                totalWinners + 1;
+
+
+            document.getElementById(
+                "adminTop"
+            ).textContent =
+                chit.adminName ||
+                "Admin";
+
+
+            document.getElementById(
+                "adminAvatar"
+            ).textContent =
+                (
+                    chit.adminName ||
+                    "A"
+                )
+                .charAt(0)
+                .toUpperCase();
+
+
+
+            document.getElementById(
+                "pageContent"
+            ).innerHTML = `
+
+
+                <!-- GROUP HEADER -->
+
+                <section
+                    class="group-header">
+
+
+                    <div class="group-title">
+
+
+                        <div class="group-icon">
+
+                            🏆
+
+                        </div>
+
+
+                        <div>
+
+
+                            <h2>
+
+                                ${escapeHTML(
+                                    chit.groupName ||
+                                    "ChitPicker"
+                                )}
+
+                            </h2>
+
+
+                            <p>
+
+                                Admin:
+
+                                <strong>
+
+                                    ${escapeHTML(
+                                        chit.adminName ||
+                                        "-"
+                                    )}
+
+                                </strong>
+
+                            </p>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div
+                        class="group-details">
+
+
+                        <div
+                            class="detail">
+
+                            <strong>
+
+                                ₹${monthlyPayment.toLocaleString(
+                                    "en-IN"
+                                )}
+
+                            </strong>
+
+                            <span>
+                                MONTHLY PAYMENT
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            class="detail">
+
+                            <strong>
+
+                                ${chit.duration || 0}
+
+                            </strong>
+
+                            <span>
+                                MONTHS
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            class="detail">
+
+                            <strong>
+
+                                ${totalMembers}
+
+                            </strong>
+
+                            <span>
+                                MEMBERS
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+                </section>
+
+
+
+                <!-- SUMMARY -->
+
+                <section
+                    class="summary">
+
+
+                    <div
+                        class="summary-card">
+
+                        <small>
+                            TOTAL WINNERS
+                        </small>
+
+                        <h2>
+
+                            ${totalWinners}
+
+                        </h2>
+
+                    </div>
+
+
+                    <div
+                        class="summary-card">
+
+                        <small>
+                            REMAINING MEMBERS
+                        </small>
+
+                        <h2>
+
+                            ${remaining}
+
+                        </h2>
+
+                    </div>
+
+
+                    <div
+                        class="summary-card">
+
+                        <small>
+                            CURRENT MONTH
+                        </small>
+
+                        <h2>
+
+                            ${
+                                remaining > 0
+                                ?
+                                "Month " +
+                                currentMonth
+                                :
+                                "Completed"
+                            }
+
+                        </h2>
+
+                    </div>
+
+
+                    <div
+                        class="summary-card">
+
+                        <small>
+                            TOTAL COLLECTION
+                        </small>
+
+                        <h2>
+
+                            ₹${totalCollection.toLocaleString(
+                                "en-IN"
+                            )}
+
+                        </h2>
+
+                    </div>
+
+
+                </section>
+
+
+
+                <!-- WINNER HISTORY -->
+
+                <section class="card">
+
+
+                    <div
+                        class="card-header">
+
+
+                        <div>
+
+                            <h3>
+                                🏆 Winner History
+                            </h3>
+
+                            <p>
+                                All winners selected
+                                from the spin picker
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            class="header-buttons">
+
+
+                            <button
+                                class="btn print-btn"
+                                onclick="window.print()">
+
+                                🖨 Print
+
+                            </button>
+
+
+                            <button
+                                class="btn dashboard-btn"
+                                onclick="goDashboard()">
+
+                                Dashboard
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- SEARCH -->
+
+                    <div class="search">
+
+                        <input
+                            type="text"
+                            id="winnerSearch"
+                            placeholder="🔍 Search winner by name, ID or month..."
+                            onkeyup="searchWinners()">
+
+                    </div>
+
+
+
+                    <!-- TABLE -->
+
+                    <div
+                        class="table-wrapper">
+
+
+                        <table>
+
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        #
+                                    </th>
+
+                                    <th>
+                                        WINNER
+                                    </th>
+
+                                    <th>
+                                        MONTH
+                                    </th>
+
+                                    <th>
+                                        WINNING DATE
+                                    </th>
+
+                                    <th>
+                                        AMOUNT RECEIVED
+                                    </th>
+
+                                    <th>
+                                        STATUS
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody
+                                id="winnerTable">
+
+                            </tbody>
+
+
+                        </table>
+
+
+                    </div>
+
+
+                </section>
+
+            `;
+
+
+            displayWinners(
+                chit.winnerHistory
+            );
+
+        }
+
+
+
+        /* =====================================================
+           DISPLAY WINNERS
+        ===================================================== */
+
+        function displayWinners(
+            winners
+        ) {
+
+
+            const table =
+                document.getElementById(
+                    "winnerTable"
+                );
+
+
+            if (!table) {
+
+                return;
+
+            }
+
+
+            table.innerHTML = "";
+
+
+            if (
+                winners.length === 0
+            ) {
+
+
+                table.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="6">
+
+                            <div
+                                class="empty">
+
+                                <div
+                                    class="empty-icon">
+
+                                    🏆
+
+                                </div>
+
+                                <h3>
+                                    No Winners Yet
+                                </h3>
+
+                                <p>
+
+                                    Spin the picker
+                                    to select the
+                                    first winner.
+
+                                </p>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+
+                return;
+
+            }
+
+
+
+            winners.forEach(
+                function (
+                    winner,
+                    index
+                ) {
+
+
+                    const name =
+                        winner.name ||
+                        "Unknown";
+
+
+                    const initial =
+                        name
+                        .charAt(0)
+                        .toUpperCase();
+
+
+                    const amount =
+                        Number(
+                            chit.monthlyPayment ||
+                            0
+                        );
+
+
+
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+
+
+                    row.innerHTML = `
+
+                        <td>
+
+                            ${index + 1}
+
+                        </td>
+
+
+                        <td>
+
+                            <div
+                                class="winner-info">
+
+
+                                <div
+                                    class="winner-avatar">
+
+                                    ${escapeHTML(
+                                        initial
+                                    )}
+
+                                </div>
+
+
+                                <div>
+
+
+                                    <div
+                                        class="winner-name">
+
+                                        ${escapeHTML(
+                                            name
+                                        )}
+
+                                    </div>
+
+
+                                    <div
+                                        class="member-id">
+
+                                        Member ID:
+
+                                        ${escapeHTML(
+                                            winner.id ||
+                                            "-"
+                                        )}
+
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            <span
+                                class="month">
+
+                                Month
+                                ${escapeHTML(
+                                    winner.month ||
+                                    index + 1
+                                )}
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHTML(
+                                winner.date ||
+                                "-"
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            <span
+                                class="amount">
+
+                                ₹${amount.toLocaleString(
+                                    "en-IN"
+                                )}
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <span
+                                class="trophy">
+
+                                🏆
+
+                            </span>
+
+                            <strong>
+                                WON
+                            </strong>
+
+                        </td>
+
+                    `;
+
+
+                    table.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* =====================================================
+           SEARCH
+        ===================================================== */
+
+        function searchWinners() {
+
+
+            const input =
+                document.getElementById(
+                    "winnerSearch"
+                );
+
+
+            if (!input) {
+
+                return;
+
+            }
+
+
+            const search =
+                input.value
+                .toLowerCase()
+                .trim();
+
+
+            const filtered =
+                chit.winnerHistory.filter(
+                    function (winner) {
+
+
+                        const name =
+                            String(
+                                winner.name ||
+                                ""
+                            )
+                            .toLowerCase();
+
+
+                        const id =
+                            String(
+                                winner.id ||
+                                ""
+                            )
+                            .toLowerCase();
+
+
+                        const month =
+                            String(
+                                winner.month ||
+                                ""
+                            )
+                            .toLowerCase();
+
+
+                        return (
+
+                            name.includes(
+                                search
+                            )
+
+                            ||
+
+                            id.includes(
+                                search
+                            )
+
+                            ||
+
+                            month.includes(
+                                search
+                            )
+
+                        );
+
+                    }
+                );
+
+
+            displayWinners(
+                filtered
+            );
+
+        }
+
+
+
+        /* =====================================================
+           DASHBOARD
+        ===================================================== */
+
+        function goDashboard() {
+
+            window.location.href =
+                "dashboard.html";
+
+        }
+
+
+
+        /* =====================================================
+           ESCAPE HTML
+        ===================================================== */
+
+        function escapeHTML(
+            value
+        ) {
+
+            return String(
+                value ?? ""
+            )
+
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+
+            .replace(
+                /</g,
+                "&lt;"
+            )
+
+            .replace(
+                />/g,
+                "&gt;"
+            )
+
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+        }
+
+
+
+        /* =====================================================
+           UPDATE WHEN PICKER CHANGES DATA
+        ===================================================== */
+
+        window.addEventListener(
+            "storage",
+            function (event) {
+
+
+                if (
+                    event.key ===
+                    "chitPickers"
+                ) {
+
+
+                    chitPickers =
+                        JSON.parse(
+                            event.newValue
+                        ) || [];
+
+
+                    chit =
+                        chitPickers.find(
+                            function (item) {
+
+                                return String(
+                                    item.id
+                                ) ===
+                                String(
+                                    selectedChitId
+                                );
+
+                            }
+                        );
+
+
+                    if (chit) {
+
+                        displayPage();
+
+                    }
+
+                }
+
+            }
+        );
+
+
+    </script>
+
+
+</body>
+
+</html>
+```

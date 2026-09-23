@@ -1,0 +1,2892 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ChitPicker - Settings</title>
+
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        /* =====================================================
+           ROOT
+        ===================================================== */
+
+        :root {
+
+            --red: #d90429;
+
+            --red-dark: #b80323;
+
+            --bg: #f4f6f9;
+
+            --card: #ffffff;
+
+            --text: #222222;
+
+            --muted: #888888;
+
+            --border: #eeeeee;
+
+            --input: #fafafa;
+
+        }
+
+
+        /* =====================================================
+           DARK THEME
+        ===================================================== */
+
+        body.dark {
+
+            --bg: #111318;
+
+            --card: #1b1e24;
+
+            --text: #f5f5f5;
+
+            --muted: #a7a7a7;
+
+            --border: #30343d;
+
+            --input: #242830;
+
+        }
+
+
+        /* =====================================================
+           BODY
+        ===================================================== */
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            background: var(--bg);
+
+            color: var(--text);
+
+            min-height: 100vh;
+
+            transition: 0.3s;
+
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+
+            position: fixed;
+
+            left: 0;
+
+            top: 0;
+
+            width: 240px;
+
+            height: 100vh;
+
+            background: var(--card);
+
+            border-right: 1px solid var(--border);
+
+            padding: 20px 14px;
+
+            z-index: 1000;
+
+            transition: 0.3s;
+
+        }
+
+
+        /* =====================================================
+           LOGO
+        ===================================================== */
+
+        .logo {
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+            padding: 15px;
+
+            color: var(--text);
+
+        }
+
+
+        .logo span {
+
+            color: var(--red);
+
+        }
+
+
+        /* =====================================================
+           NAV
+        ===================================================== */
+
+        .nav a {
+
+            display: block;
+
+            text-decoration: none;
+
+            color: var(--muted);
+
+            padding: 13px;
+
+            border-radius: 9px;
+
+            margin: 5px 0;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+
+        }
+
+
+        .nav a:hover {
+
+            background: var(--red);
+
+            color: white;
+
+        }
+
+
+        .nav a.active {
+
+            background: var(--red);
+
+            color: white;
+
+        }
+
+
+        /* =====================================================
+           LOGOUT
+        ===================================================== */
+
+        .logout {
+
+            margin-top: 15px;
+
+        }
+
+
+        .logout a {
+
+            display: block;
+
+            text-decoration: none;
+
+            color: var(--muted);
+
+            padding: 13px;
+
+            border-radius: 9px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+
+        }
+
+
+        .logout a:hover {
+
+            background: var(--red);
+
+            color: white;
+
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .main {
+
+            margin-left: 240px;
+
+            width: calc(100% - 240px);
+
+            padding: 28px;
+
+            min-height: 100vh;
+
+        }
+
+
+        /* =====================================================
+           TOP
+        ===================================================== */
+
+        .top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .top-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+        }
+
+
+        .back {
+
+            text-decoration: none;
+
+            color: var(--red);
+
+            background: var(--card);
+
+            border: 1px solid var(--border);
+
+            padding: 10px 13px;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            font-size: 13px;
+
+        }
+
+
+        .back:hover {
+
+            background: var(--red);
+
+            color: white;
+
+        }
+
+
+        .top h1 {
+
+            font-size: 28px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .top p {
+
+            color: var(--muted);
+
+            font-size: 13px;
+
+        }
+
+
+        /* =====================================================
+           ADMIN
+        ===================================================== */
+
+        .admin-box {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+        .admin-avatar {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 50%;
+
+            background: var(--red);
+
+            color: white;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-weight: bold;
+
+        }
+
+
+        .admin-details strong {
+
+            display: block;
+
+            font-size: 13px;
+
+        }
+
+
+        .admin-details small {
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+        }
+
+
+        /* =====================================================
+           SETTINGS GRID
+        ===================================================== */
+
+        .settings-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 20px;
+
+        }
+
+
+        /* =====================================================
+           SETTINGS CARD
+        ===================================================== */
+
+        .settings-card {
+
+            background: var(--card);
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            padding: 22px;
+
+            box-shadow: 0 3px 15px #0000000b;
+
+        }
+
+
+        .settings-card.full {
+
+            grid-column: 1 / -1;
+
+        }
+
+
+        .card-heading {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 20px;
+
+            padding-bottom: 15px;
+
+            border-bottom: 1px solid var(--border);
+
+        }
+
+
+        .heading-icon {
+
+            width: 40px;
+
+            height: 40px;
+
+            border-radius: 10px;
+
+            background: #fff1f3;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 19px;
+
+        }
+
+
+        body.dark .heading-icon {
+
+            background: #32151c;
+
+        }
+
+
+        .card-heading h2 {
+
+            font-size: 17px;
+
+        }
+
+
+        .card-heading p {
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+            margin-top: 3px;
+
+        }
+
+
+        /* =====================================================
+           FORM
+        ===================================================== */
+
+        .form-group {
+
+            margin-bottom: 16px;
+
+        }
+
+
+        .form-group:last-child {
+
+            margin-bottom: 0;
+
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+
+            color: var(--muted);
+
+        }
+
+
+        .form-group input,
+
+        .form-group select {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 8px;
+
+            outline: none;
+
+            background: var(--input);
+
+            color: var(--text);
+
+            font-size: 12px;
+
+        }
+
+
+        .form-group input:focus,
+
+        .form-group select:focus {
+
+            border-color: var(--red);
+
+        }
+
+
+        /* =====================================================
+           TOGGLE ROW
+        ===================================================== */
+
+        .setting-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+            padding: 14px 0;
+
+            border-bottom: 1px solid var(--border);
+
+        }
+
+
+        .setting-row:first-child {
+
+            padding-top: 0;
+
+        }
+
+
+        .setting-row:last-child {
+
+            border-bottom: none;
+
+            padding-bottom: 0;
+
+        }
+
+
+        .setting-info strong {
+
+            display: block;
+
+            font-size: 12px;
+
+            margin-bottom: 4px;
+
+        }
+
+
+        .setting-info span {
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+            line-height: 1.4;
+
+        }
+
+
+        /* =====================================================
+           TOGGLE SWITCH
+        ===================================================== */
+
+        .switch {
+
+            position: relative;
+
+            width: 45px;
+
+            height: 24px;
+
+            flex-shrink: 0;
+
+        }
+
+
+        .switch input {
+
+            display: none;
+
+        }
+
+
+        .slider {
+
+            position: absolute;
+
+            inset: 0;
+
+            background: #ccc;
+
+            border-radius: 30px;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+        }
+
+
+        .slider:before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 18px;
+
+            height: 18px;
+
+            left: 3px;
+
+            top: 3px;
+
+            background: white;
+
+            border-radius: 50%;
+
+            transition: 0.3s;
+
+        }
+
+
+        .switch input:checked + .slider {
+
+            background: var(--red);
+
+        }
+
+
+        .switch input:checked + .slider:before {
+
+            transform: translateX(21px);
+
+        }
+
+
+        /* =====================================================
+           THEME OPTIONS
+        ===================================================== */
+
+        .theme-options {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 12px;
+
+        }
+
+
+        .theme-option {
+
+            border: 2px solid var(--border);
+
+            border-radius: 10px;
+
+            padding: 15px;
+
+            cursor: pointer;
+
+            text-align: center;
+
+            transition: 0.3s;
+
+        }
+
+
+        .theme-option:hover {
+
+            border-color: var(--red);
+
+        }
+
+
+        .theme-option.selected {
+
+            border-color: var(--red);
+
+            background: #fff5f6;
+
+        }
+
+
+        body.dark .theme-option.selected {
+
+            background: #32151c;
+
+        }
+
+
+        .theme-preview {
+
+            height: 45px;
+
+            border-radius: 7px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .light-preview {
+
+            background: #f4f6f9;
+
+            border: 1px solid #ddd;
+
+        }
+
+
+        .dark-preview {
+
+            background: #111318;
+
+            border: 1px solid #333;
+
+        }
+
+
+        .theme-option strong {
+
+            font-size: 12px;
+
+        }
+
+
+        .theme-option small {
+
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 9px;
+
+            margin-top: 3px;
+
+        }
+
+
+        /* =====================================================
+           BUTTONS
+        ===================================================== */
+
+        .buttons {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            margin-top: 20px;
+
+        }
+
+
+        .btn {
+
+            border: none;
+
+            padding: 11px 18px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+        }
+
+
+        .save-btn {
+
+            background: var(--red);
+
+            color: white;
+
+        }
+
+
+        .save-btn:hover {
+
+            background: var(--red-dark);
+
+        }
+
+
+        .reset-btn {
+
+            background: var(--input);
+
+            border: 1px solid var(--border);
+
+            color: var(--text);
+
+        }
+
+
+        .reset-btn:hover {
+
+            border-color: var(--red);
+
+            color: var(--red);
+
+        }
+
+
+        /* =====================================================
+           DANGER ZONE
+        ===================================================== */
+
+        .danger {
+
+            border-color: #f3c5cc;
+
+        }
+
+
+        .danger .heading-icon {
+
+            background: #fff1f3;
+
+        }
+
+
+        .danger-text {
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .danger-btn {
+
+            margin-top: 15px;
+
+            background: #333;
+
+            color: white;
+
+        }
+
+
+        .danger-btn:hover {
+
+            background: #111;
+
+        }
+
+
+        /* =====================================================
+           MESSAGE
+        ===================================================== */
+
+        .message {
+
+            position: fixed;
+
+            right: 25px;
+
+            bottom: 25px;
+
+            background: #168542;
+
+            color: white;
+
+            padding: 13px 18px;
+
+            border-radius: 8px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transform: translateY(20px);
+
+            transition: 0.3s;
+
+        }
+
+
+        .message.show {
+
+            opacity: 1;
+
+            transform: translateY(0);
+
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .footer {
+
+            text-align: center;
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+            padding: 20px 0 5px;
+
+        }
+
+
+        /* =====================================================
+           TABLET
+        ===================================================== */
+
+        @media (max-width: 1000px) {
+
+            .settings-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .settings-card.full {
+
+                grid-column: auto;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+
+                width: 70px;
+
+                padding: 20px 10px;
+
+            }
+
+
+            .logo {
+
+                font-size: 0;
+
+                text-align: center;
+
+                padding: 15px 5px;
+
+            }
+
+
+            .logo:first-letter {
+
+                font-size: 22px;
+
+            }
+
+
+            .nav a {
+
+                font-size: 0;
+
+                text-align: center;
+
+                padding: 13px 5px;
+
+            }
+
+
+            .nav a:first-letter {
+
+                font-size: 19px;
+
+            }
+
+
+            .logout a {
+
+                font-size: 0;
+
+                text-align: center;
+
+            }
+
+
+            .logout a:first-letter {
+
+                font-size: 19px;
+
+            }
+
+
+            .main {
+
+                margin-left: 70px;
+
+                width: calc(100% - 70px);
+
+                padding: 22px;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 600px) {
+
+            .main {
+
+                padding: 14px;
+
+            }
+
+
+            .top {
+
+                align-items: flex-start;
+
+            }
+
+
+            .top h1 {
+
+                font-size: 22px;
+
+            }
+
+
+            .admin-details {
+
+                display: none;
+
+            }
+
+
+            .settings-card {
+
+                padding: 17px;
+
+            }
+
+
+            .theme-options {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .buttons {
+
+                flex-direction: column;
+
+            }
+
+
+            .buttons .btn {
+
+                width: 100%;
+
+            }
+
+
+            .setting-row {
+
+                align-items: flex-start;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           PRINT
+        ===================================================== */
+
+        @media print {
+
+            .sidebar,
+            .top,
+            .buttons {
+
+                display: none;
+
+            }
+
+
+            .main {
+
+                margin-left: 0;
+
+                width: 100%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ===================================================== -->
+
+    <aside class="sidebar">
+
+
+        <div class="logo">
+
+            ■ Chit<span>Picker</span>
+
+        </div>
+
+
+        <nav class="nav">
+
+
+            <a href="dashboard.html">
+
+                ■ Dashboard
+
+            </a>
+
+
+            <a href="members.html">
+
+                ■ Members
+
+            </a>
+
+
+            <a href="payment.html">
+
+                ■ Payments
+
+            </a>
+
+
+            <a href="picker.html">
+
+                ■ Spin Picker
+
+            </a>
+
+
+            <a href="winners.html">
+
+                ■ Winners
+
+            </a>
+
+
+            <a href="reports.html">
+
+                ■ Reports
+
+            </a>
+
+
+            <a href="settings.html"
+               class="active">
+
+                ⚙ Settings
+
+            </a>
+
+
+        </nav>
+
+
+        <div class="logout">
+
+
+            <a href="login.html"
+               onclick="return confirmLogout()">
+
+                🚪 Logout
+
+            </a>
+
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ===================================================== -->
+
+    <main class="main">
+
+
+        <!-- =================================================
+             TOP
+        ================================================= -->
+
+        <div class="top">
+
+
+            <div class="top-left">
+
+
+                <a href="dashboard.html"
+                   class="back">
+
+                    ← Dashboard
+
+                </a>
+
+
+                <div>
+
+
+                    <h1>
+
+                        Settings
+
+                    </h1>
+
+
+                    <p>
+
+                        Manage your ChitPicker system
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="admin-box">
+
+
+                <div class="admin-avatar"
+                     id="adminAvatar">
+
+                    A
+
+                </div>
+
+
+                <div class="admin-details">
+
+
+                    <strong id="adminName">
+
+                        Admin
+
+                    </strong>
+
+
+                    <small>
+
+                        Administrator
+
+                    </small>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             SETTINGS
+        ================================================= -->
+
+        <div class="settings-grid">
+
+
+            <!-- =============================================
+                 PROFILE
+            ============================================== -->
+
+            <section class="settings-card">
+
+
+                <div class="card-heading">
+
+
+                    <div class="heading-icon">
+
+                        👤
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+
+                            Admin Profile
+
+                        </h2>
+
+
+                        <p>
+
+                            Manage administrator information
+
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="form-group">
+
+
+                    <label>
+
+                        ADMIN NAME
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="adminInput"
+                        placeholder="Enter admin name">
+
+
+                </div>
+
+
+
+                <div class="form-group">
+
+
+                    <label>
+
+                        EMAIL
+
+                    </label>
+
+
+                    <input
+                        type="email"
+                        id="emailInput"
+                        placeholder="admin@example.com">
+
+
+                </div>
+
+
+
+                <div class="form-group">
+
+
+                    <label>
+
+                        PHONE NUMBER
+
+                    </label>
+
+
+                    <input
+                        type="tel"
+                        id="phoneInput"
+                        placeholder="Enter phone number">
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =============================================
+                 THEME
+            ============================================== -->
+
+            <section class="settings-card">
+
+
+                <div class="card-heading">
+
+
+                    <div class="heading-icon">
+
+                        🎨
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+
+                            Appearance
+
+                        </h2>
+
+
+                        <p>
+
+                            Choose your preferred theme
+
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="theme-options">
+
+
+                    <div
+                        class="theme-option"
+                        id="lightTheme"
+                        onclick="setTheme('light')">
+
+
+                        <div class="theme-preview light-preview">
+
+                        </div>
+
+
+                        <strong>
+
+                            ☀ Light Theme
+
+                        </strong>
+
+
+                        <small>
+
+                            Bright interface
+
+                        </small>
+
+
+                    </div>
+
+
+
+                    <div
+                        class="theme-option"
+                        id="darkTheme"
+                        onclick="setTheme('dark')">
+
+
+                        <div class="theme-preview dark-preview">
+
+                        </div>
+
+
+                        <strong>
+
+                            🌙 Dark Theme
+
+                        </strong>
+
+
+                        <small>
+
+                            Easy on the eyes
+
+                        </small>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =============================================
+                 NOTIFICATIONS
+            ============================================== -->
+
+            <section class="settings-card">
+
+
+                <div class="card-heading">
+
+
+                    <div class="heading-icon">
+
+                        🔔
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+
+                            Notifications
+
+                        </h2>
+
+
+                        <p>
+
+                            Control system notifications
+
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="setting-row">
+
+
+                    <div class="setting-info">
+
+
+                        <strong>
+
+                            Payment Reminders
+
+                        </strong>
+
+
+                        <span>
+
+                            Notify when a member payment
+                            is pending.
+
+                        </span>
+
+
+                    </div>
+
+
+                    <label class="switch">
+
+
+                        <input
+                            type="checkbox"
+                            id="paymentNotify">
+
+
+                        <span class="slider"></span>
+
+
+                    </label>
+
+
+                </div>
+
+
+
+                <div class="setting-row">
+
+
+                    <div class="setting-info">
+
+
+                        <strong>
+
+                            Winner Notifications
+
+                        </strong>
+
+
+                        <span>
+
+                            Show notification after a winner
+                            is selected.
+
+                        </span>
+
+
+                    </div>
+
+
+                    <label class="switch">
+
+
+                        <input
+                            type="checkbox"
+                            id="winnerNotify">
+
+
+                        <span class="slider"></span>
+
+
+                    </label>
+
+
+                </div>
+
+
+
+                <div class="setting-row">
+
+
+                    <div class="setting-info">
+
+
+                        <strong>
+
+                            Sound Effects
+
+                        </strong>
+
+
+                        <span>
+
+                            Play sound when the spin wheel
+                            finishes.
+
+                        </span>
+
+
+                    </div>
+
+
+                    <label class="switch">
+
+
+                        <input
+                            type="checkbox"
+                            id="soundNotify">
+
+
+                        <span class="slider"></span>
+
+
+                    </label>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =============================================
+                 PICKER SETTINGS
+            ============================================== -->
+
+            <section class="settings-card">
+
+
+                <div class="card-heading">
+
+
+                    <div class="heading-icon">
+
+                        🎡
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+
+                            Picker Settings
+
+                        </h2>
+
+
+                        <p>
+
+                            Configure the winner selection
+
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="setting-row">
+
+
+                    <div class="setting-info">
+
+
+                        <strong>
+
+                            Automatic Winner Removal
+
+                        </strong>
+
+
+                        <span>
+
+                            Remove the winner from the wheel
+                            automatically.
+
+                        </span>
+
+
+                    </div>
+
+
+                    <label class="switch">
+
+
+                        <input
+                            type="checkbox"
+                            id="autoRemove"
+                            checked>
+
+
+                        <span class="slider"></span>
+
+
+                    </label>
+
+
+                </div>
+
+
+
+                <div class="setting-row">
+
+
+                    <div class="setting-info">
+
+
+                        <strong>
+
+                            Show Winner Animation
+
+                        </strong>
+
+
+                        <span>
+
+                            Display animation when a winner
+                            is selected.
+
+                        </span>
+
+
+                    </div>
+
+
+                    <label class="switch">
+
+
+                        <input
+                            type="checkbox"
+                            id="winnerAnimation"
+                            checked>
+
+
+                        <span class="slider"></span>
+
+
+                    </label>
+
+
+                </div>
+
+
+
+                <div class="form-group"
+                     style="margin-top:18px;">
+
+
+                    <label>
+
+                        SPIN DURATION
+
+                    </label>
+
+
+                    <select id="spinDuration">
+
+
+                        <option value="5">
+
+                            5 Seconds
+
+                        </option>
+
+
+                        <option value="8">
+
+                            8 Seconds
+
+                        </option>
+
+
+                        <option value="10">
+
+                            10 Seconds
+
+                        </option>
+
+
+                        <option value="15">
+
+                            15 Seconds
+
+                        </option>
+
+
+                    </select>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =============================================
+                 PAYMENT SETTINGS
+            ============================================== -->
+
+            <section class="settings-card">
+
+
+                <div class="card-heading">
+
+
+                    <div class="heading-icon">
+
+                        💰
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+
+                            Payment Settings
+
+                        </h2>
+
+
+                        <p>
+
+                            Configure payment management
+
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="setting-row">
+
+
+                    <div class="setting-info">
+
+
+                        <strong>
+
+                            Payment Reminder
+
+                        </strong>
+
+
+                        <span>
+
+                            Enable reminders for unpaid
+                            monthly payments.
+
+                        </span>
+
+
+                    </div>
+
+
+                    <label class="switch">
+
+
+                        <input
+                            type="checkbox"
+                            id="paymentReminder"
+                            checked>
+
+
+                        <span class="slider"></span>
+
+
+                    </label>
+
+
+                </div>
+
+
+
+                <div class="setting-row">
+
+
+                    <div class="setting-info">
+
+
+                        <strong>
+
+                            Payment Confirmation
+
+                        </strong>
+
+
+                        <span>
+
+                            Ask confirmation before marking
+                            payment as paid.
+
+                        </span>
+
+
+                    </div>
+
+
+                    <label class="switch">
+
+
+                        <input
+                            type="checkbox"
+                            id="paymentConfirmation"
+                            checked>
+
+
+                        <span class="slider"></span>
+
+
+                    </label>
+
+
+                </div>
+
+
+
+            </section>
+
+
+
+            <!-- =============================================
+                 SECURITY
+            ============================================== -->
+
+            <section class="settings-card">
+
+
+                <div class="card-heading">
+
+
+                    <div class="heading-icon">
+
+                        🔐
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+
+                            Security
+
+                        </h2>
+
+
+                        <p>
+
+                            Protect administrator access
+
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="form-group">
+
+
+                    <label>
+
+                        CURRENT PASSWORD
+
+                    </label>
+
+
+                    <input
+                        type="password"
+                        id="currentPassword"
+                        placeholder="Enter current password">
+
+
+                </div>
+
+
+
+                <div class="form-group">
+
+
+                    <label>
+
+                        NEW PASSWORD
+
+                    </label>
+
+
+                    <input
+                        type="password"
+                        id="newPassword"
+                        placeholder="Enter new password">
+
+
+                </div>
+
+
+
+                <div class="form-group">
+
+
+                    <label>
+
+                        CONFIRM PASSWORD
+
+                    </label>
+
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Confirm new password">
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =============================================
+                 DANGER ZONE
+            ============================================== -->
+
+            <section class="settings-card full danger">
+
+
+                <div class="card-heading">
+
+
+                    <div class="heading-icon">
+
+                        ⚠️
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+
+                            Danger Zone
+
+                        </h2>
+
+
+                        <p>
+
+                            Be careful with these actions
+
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <p class="danger-text">
+
+                    Resetting settings will restore the
+                    application settings to their default
+                    values. Your ChitPicker groups, members,
+                    payments and winners will not be deleted.
+
+                </p>
+
+
+                <button
+                    class="btn danger-btn"
+                    onclick="resetSettings()">
+
+                    ↻ Reset Settings
+
+                </button>
+
+
+            </section>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             SAVE BUTTONS
+        ================================================= -->
+
+        <div class="buttons">
+
+
+            <button
+                class="btn reset-btn"
+                onclick="loadSettings()">
+
+                Cancel
+
+            </button>
+
+
+            <button
+                class="btn save-btn"
+                onclick="saveSettings()">
+
+                💾 Save Settings
+
+            </button>
+
+
+        </div>
+
+
+
+        <div class="footer">
+
+            ChitPicker Management System
+            • Settings
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         SUCCESS MESSAGE
+    ===================================================== -->
+
+    <div
+        class="message"
+        id="message">
+
+        ✓ Settings saved successfully
+
+    </div>
+
+
+
+    <script>
+
+
+        /* =====================================================
+           SETTINGS STORAGE KEY
+        ===================================================== */
+
+        const SETTINGS_KEY =
+            "chitPickerSettings";
+
+
+
+        /* =====================================================
+           DEFAULT SETTINGS
+        ===================================================== */
+
+        const defaultSettings = {
+
+            theme: "light",
+
+            adminName: "Admin",
+
+            email: "",
+
+            phone: "",
+
+            paymentNotify: true,
+
+            winnerNotify: true,
+
+            soundNotify: true,
+
+            autoRemove: true,
+
+            winnerAnimation: true,
+
+            spinDuration: "8",
+
+            paymentReminder: true,
+
+            paymentConfirmation: true
+
+        };
+
+
+
+        /* =====================================================
+           GET SETTINGS
+        ===================================================== */
+
+        function getSettings() {
+
+
+            const saved =
+                JSON.parse(
+                    localStorage.getItem(
+                        SETTINGS_KEY
+                    )
+                );
+
+
+            return {
+
+                ...defaultSettings,
+
+                ...(saved || {})
+
+            };
+
+        }
+
+
+
+        /* =====================================================
+           LOAD SETTINGS
+        ===================================================== */
+
+        function loadSettings() {
+
+
+            const settings =
+                getSettings();
+
+
+            /* Admin */
+
+            document.getElementById(
+                "adminInput"
+            ).value =
+                settings.adminName;
+
+
+            document.getElementById(
+                "emailInput"
+            ).value =
+                settings.email;
+
+
+            document.getElementById(
+                "phoneInput"
+            ).value =
+                settings.phone;
+
+
+
+            /* Notifications */
+
+            document.getElementById(
+                "paymentNotify"
+            ).checked =
+                settings.paymentNotify;
+
+
+            document.getElementById(
+                "winnerNotify"
+            ).checked =
+                settings.winnerNotify;
+
+
+            document.getElementById(
+                "soundNotify"
+            ).checked =
+                settings.soundNotify;
+
+
+
+            /* Picker */
+
+            document.getElementById(
+                "autoRemove"
+            ).checked =
+                settings.autoRemove;
+
+
+            document.getElementById(
+                "winnerAnimation"
+            ).checked =
+                settings.winnerAnimation;
+
+
+            document.getElementById(
+                "spinDuration"
+            ).value =
+                settings.spinDuration;
+
+
+
+            /* Payments */
+
+            document.getElementById(
+                "paymentReminder"
+            ).checked =
+                settings.paymentReminder;
+
+
+            document.getElementById(
+                "paymentConfirmation"
+            ).checked =
+                settings.paymentConfirmation;
+
+
+
+            /* Theme */
+
+            applyTheme(
+                settings.theme
+            );
+
+        }
+
+
+
+        /* =====================================================
+           SAVE SETTINGS
+        ===================================================== */
+
+        function saveSettings() {
+
+
+            const currentPassword =
+                document.getElementById(
+                    "currentPassword"
+                ).value;
+
+
+            const newPassword =
+                document.getElementById(
+                    "newPassword"
+                ).value;
+
+
+            const confirmPassword =
+                document.getElementById(
+                    "confirmPassword"
+                ).value;
+
+
+
+            /* Check new password */
+
+            if (newPassword ||
+                confirmPassword) {
+
+
+                if (
+                    newPassword !==
+                    confirmPassword
+                ) {
+
+                    alert(
+                        "New password and confirm password do not match."
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    newPassword.length < 6
+                ) {
+
+                    alert(
+                        "New password must contain at least 6 characters."
+                    );
+
+                    return;
+
+                }
+
+            }
+
+
+
+            const settings = {
+
+
+                theme:
+                    document.body.classList
+                    .contains("dark")
+                    ?
+                    "dark"
+                    :
+                    "light",
+
+
+                adminName:
+                    document.getElementById(
+                        "adminInput"
+                    ).value.trim()
+                    ||
+                    "Admin",
+
+
+                email:
+                    document.getElementById(
+                        "emailInput"
+                    ).value.trim(),
+
+
+                phone:
+                    document.getElementById(
+                        "phoneInput"
+                    ).value.trim(),
+
+
+                paymentNotify:
+                    document.getElementById(
+                        "paymentNotify"
+                    ).checked,
+
+
+                winnerNotify:
+                    document.getElementById(
+                        "winnerNotify"
+                    ).checked,
+
+
+                soundNotify:
+                    document.getElementById(
+                        "soundNotify"
+                    ).checked,
+
+
+                autoRemove:
+                    document.getElementById(
+                        "autoRemove"
+                    ).checked,
+
+
+                winnerAnimation:
+                    document.getElementById(
+                        "winnerAnimation"
+                    ).checked,
+
+
+                spinDuration:
+                    document.getElementById(
+                        "spinDuration"
+                    ).value,
+
+
+                paymentReminder:
+                    document.getElementById(
+                        "paymentReminder"
+                    ).checked,
+
+
+                paymentConfirmation:
+                    document.getElementById(
+                        "paymentConfirmation"
+                    ).checked
+
+            };
+
+
+
+            localStorage.setItem(
+
+                SETTINGS_KEY,
+
+                JSON.stringify(settings)
+
+            );
+
+
+
+            /* =============================================
+               UPDATE ADMIN IN EXISTING CHITPICKER
+            ============================================= */
+
+            updateAdminName(
+                settings.adminName
+            );
+
+
+
+            /* =============================================
+               PASSWORD
+            ============================================= */
+
+            if (newPassword) {
+
+                localStorage.setItem(
+
+                    "adminPassword",
+
+                    newPassword
+
+                );
+
+            }
+
+
+
+            /* Clear password fields */
+
+            document.getElementById(
+                "currentPassword"
+            ).value = "";
+
+
+            document.getElementById(
+                "newPassword"
+            ).value = "";
+
+
+            document.getElementById(
+                "confirmPassword"
+            ).value = "";
+
+
+
+            showMessage();
+
+        }
+
+
+
+        /* =====================================================
+           UPDATE ADMIN NAME IN CHITPICKER
+        ===================================================== */
+
+        function updateAdminName(
+            name
+        ) {
+
+
+            let chitPickers =
+                JSON.parse(
+                    localStorage.getItem(
+                        "chitPickers"
+                    )
+                ) || [];
+
+
+            const selectedId =
+                localStorage.getItem(
+                    "selectedChitId"
+                );
+
+
+            chitPickers =
+                chitPickers.map(
+                    function(chit) {
+
+
+                        if (
+                            String(chit.id) ===
+                            String(selectedId)
+                        ) {
+
+                            chit.adminName =
+                                name;
+
+                        }
+
+
+                        return chit;
+
+                    }
+                );
+
+
+            localStorage.setItem(
+
+                "chitPickers",
+
+                JSON.stringify(
+                    chitPickers
+                )
+
+            );
+
+        }
+
+
+
+        /* =====================================================
+           THEME
+        ===================================================== */
+
+        function setTheme(
+            theme
+        ) {
+
+
+            applyTheme(
+                theme
+            );
+
+
+            const settings =
+                getSettings();
+
+
+            settings.theme =
+                theme;
+
+
+            localStorage.setItem(
+
+                SETTINGS_KEY,
+
+                JSON.stringify(settings)
+
+            );
+
+        }
+
+
+
+        /* =====================================================
+           APPLY THEME
+        ===================================================== */
+
+        function applyTheme(
+            theme
+        ) {
+
+
+            if (
+                theme === "dark"
+            ) {
+
+                document.body.classList
+                    .add("dark");
+
+            }
+
+            else {
+
+                document.body.classList
+                    .remove("dark");
+
+            }
+
+
+            document.getElementById(
+                "lightTheme"
+            ).classList.toggle(
+
+                "selected",
+
+                theme === "light"
+
+            );
+
+
+            document.getElementById(
+                "darkTheme"
+            ).classList.toggle(
+
+                "selected",
+
+                theme === "dark"
+
+            );
+
+        }
+
+
+
+        /* =====================================================
+           RESET SETTINGS
+        ===================================================== */
+
+        function resetSettings() {
+
+
+            const answer =
+                confirm(
+
+                    "Reset all application settings to default?"
+
+                );
+
+
+            if (!answer) {
+
+                return;
+
+            }
+
+
+            localStorage.setItem(
+
+                SETTINGS_KEY,
+
+                JSON.stringify(
+                    defaultSettings
+                )
+
+            );
+
+
+            loadSettings();
+
+
+            showMessage(
+                "✓ Settings reset successfully"
+            );
+
+        }
+
+
+
+        /* =====================================================
+           SUCCESS MESSAGE
+        ===================================================== */
+
+        function showMessage(
+            text
+        ) {
+
+
+            const message =
+                document.getElementById(
+                    "message"
+                );
+
+
+            message.textContent =
+                text ||
+                "✓ Settings saved successfully";
+
+
+            message.classList
+                .add("show");
+
+
+            setTimeout(
+                function() {
+
+
+                    message.classList
+                        .remove("show");
+
+
+                },
+                2500
+            );
+
+        }
+
+
+
+        /* =====================================================
+           LOGOUT
+        ===================================================== */
+
+        function confirmLogout() {
+
+
+            return confirm(
+
+                "Are you sure you want to logout?"
+
+            );
+
+        }
+
+
+
+        /* =====================================================
+           START
+        ===================================================== */
+
+        loadSettings();
+
+
+    </script>
+
+
+</body>
+
+</html>
